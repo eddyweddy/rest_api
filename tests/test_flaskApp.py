@@ -13,10 +13,27 @@
 #
 # def test_app_is_testing(self):
 #     self.assertTrue(current_app.config['TESTING'])
-import flask_restful
+
+# import flask_restful
+# from API.example.template import HelloWorld
+#
+#
+# def test_is_instance():
+#     instance = HelloWorld(flask_restful.Resource)
+#     assert isinstance(instance)
+
+import unittest
 from API.example.template import HelloWorld
+import requests
+import json
+import sys
 
 
-def test_is_instance():
-    instance = HelloWorld(flask_restful.Resource)
-    assert isinstance(instance)
+class TestFlaskApiUsingRequests(unittest.TestCase):
+    def test_hello_world(self):
+        response = requests.get('http://localhost:5000')
+        self.assertEqual(response.json(), {'Docker': 'hello world'})
+
+
+if __name__ == "__main__":
+    unittest.main()
