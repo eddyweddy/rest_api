@@ -17,6 +17,7 @@ script:
 
 env:
   - REGISTRY_USER=eddyweddy
+  - REPO=rest_api
 
 deploy:
   provider: script
