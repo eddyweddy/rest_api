@@ -1,12 +1,18 @@
 language: python
-
 sudo: false
-
 python:
-    -   3.6
-
+- 3.6
+services:
+- docker
+env:
+  global:
+    secure: PZcFLiPqs8leykaNTU7Dqaw+dAFwjClqYrPMDqkczmotbo97oSI7D+U+WDvupjiNrQL0/5ZJJ/P0QduBD58oWa2xZiXtYYOFAaoPP3IYyPT84UyY6wX5lt/FqoQS+CB72it0UuJTXMUl3I9aACwjMolNIDiEWKrpJK5RDJ/B+Gk0zmOQOH4HACCA9vKyeO83daSrjPIKdVI5UKCLOxoVHR1MlW9iIVkEkGhSJiPLja7qBZ4cpZBZmushHqmxMBBufSjeTksE/wjrep6XtLLOCeMJi5ohXOfSpKEhVmHT3RxCjOBUD1zY+O02VwhfZ3doPKPIEw35UmKja4/ilkIgE4lX6aZ15j/Nk6/Ss6hd8VCwNQINm19X+qisw/095mI22lR+SuBU0NDB6PRKxy7TOLC1R0PSnPZiGI4IVKjZF1+8dGtvRCW+nuvcFxMAN91Ao+2upZrosMBMOZ+2+HA09AODNYfJq9wCsePCiz0fsznzauZd9Bkk2cqjpPgDNZDnfdZld+9H1zHVWldKURcnO98IrRehQa/XU0bPYAvmpaEvkcwKixkN9fnVkR2XjA1jnxF9wGuqzL1tA9HMfK5DMvf61UqqmKk6Qoj8f1WfUTw0Utsv7jhT7mgA8yNveHQJrwmXSjD2q1Kn99CzltRrQEJr9Z8hlzocu6yBK0g4/f8=
+    REGISTRY_USER=eddyrobot101
+    REPO=rest_api
 install:
-     - pip install -r requirements.txt
-
-script: 
-    -   pytest
+- docker build -t $REPO .
+script:
+- docker run -d -p 5000:5000 $REPO
+deploy:
+  provider: script
+  script: bash docker_push.sh
