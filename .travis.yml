@@ -12,6 +12,7 @@ install:
 - docker build -t $REPO .
 
 script:
+- docker run -d -p 5000:5000 $REPO
 - python -m pytest tests/
 
 env:
