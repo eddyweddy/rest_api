@@ -1,19 +1,24 @@
----
-deploy:
-  provider: script
-  script: "bash docker_push.sh"
-env:
-  global:
-    REGISTRY_USER: eddyrobot101
-    REPO: rest_api
-    secure: PZcFLiPqs8leykaNTU7Dqaw+dAFwjClqYrPMDqkczmotbo97oSI7D+U+WDvupjiNrQL0/5ZJJ/P0QduBD58oWa2xZiXtYYOFAaoPP3IYyPT84UyY6wX5lt/FqoQS+CB72it0UuJTXMUl3I9aACwjMolNIDiEWKrpJK5RDJ/B+Gk0zmOQOH4HACCA9vKyeO83daSrjPIKdVI5UKCLOxoVHR1MlW9iIVkEkGhSJiPLja7qBZ4cpZBZmushHqmxMBBufSjeTksE/wjrep6XtLLOCeMJi5ohXOfSpKEhVmHT3RxCjOBUD1zY+O02VwhfZ3doPKPIEw35UmKja4/ilkIgE4lX6aZ15j/Nk6/Ss6hd8VCwNQINm19X+qisw/095mI22lR+SuBU0NDB6PRKxy7TOLC1R0PSnPZiGI4IVKjZF1+8dGtvRCW+nuvcFxMAN91Ao+2upZrosMBMOZ+2+HA09AODNYfJq9wCsePCiz0fsznzauZd9Bkk2cqjpPgDNZDnfdZld+9H1zHVWldKURcnO98IrRehQa/XU0bPYAvmpaEvkcwKixkN9fnVkR2XjA1jnxF9wGuqzL1tA9HMfK5DMvf61UqqmKk6Qoj8f1WfUTw0Utsv7jhT7mgA8yNveHQJrwmXSjD2q1Kn99CzltRrQEJr9Z8hlzocu6yBK0g4/f8=
-install:
-  - "docker build -t $REPO ."
+sudo: false
+
 language: python
-python:
-  - 3.6
-script:
-  - "docker run -d -p 5000:5000 $REPO"
+
 services:
   - docker
-sudo: false
+
+python:
+  - 3.6
+
+install:
+- docker build -t $REPO .
+
+script:
+- docker run -d -p 5000:5000 $REPO
+
+env:
+  - REGISTRY_USER=eddyweddy
+
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  password:
+    secure: snCJxDOe2Vz7q3iQ/Wa/d76ZZ8QT5PI1gbVorWNj1h3STauwJLFAdhhpaMnyYlCFTKEMJG4APz//GsOnVY+7GYJeRPt9Zw0StbVOwg+AWTcK8i877/Wv4U9zCXUUdMV7WPDFvArqB8iawOHe9G0Ppq/EYgdTMT8nC/UaT41ngThQ4vZoSiIbs/wopvHH1giFniDorK8P4BRXfDqeqna/+L2QedX6uXglr4YhcFwjO5EcUXFKSqkPOWLi2lU059bjrH7zHaSER/2/OW1MpNvcY5cWTk6klEdfxt2X9nL/0D09kUIVlrGGzXP662Rkc8dyaX1ZEnYMStJbiaH9iuqBCMWKI6K3XsvooAU2pJNuJaHWTKMETb/azpW77oDd0RBz0rd66D/vTzPopTM6GBuQUfRhfQLUFrfRalSTC4TcKga1ABvZuzD/SQQR6S2Uq/E+Gw3vryEkbIkFWULbrPOb8MMkKkj5V88Gt9R/4kMupgPl2caamEvTSJmC6CDoTYkgwEAz9ble73m3x/NapYHk4pad7SIkIsukohA1FCirPKT8BQ++DEGEKYV4yrK0KzZypOacomeB7s1EkJe8NRleBNbrZSuQYu3hyzSLXZGa173PFxolYTmGLMdaNSUOiCct09RTPgheHGkKIXH9HxgAhwJ8MNdrDpMLxhzwdoDLPFQ=
